@@ -1,5 +1,6 @@
 .App {
-  background-color: #0f0023;
+  /* background-color: #0f0023; */
+  background-image: radial-gradient(circle, #300d5f, #1b0438, #0c001b);
   text-align: center;
   width: 210px;
   height: 250px;
