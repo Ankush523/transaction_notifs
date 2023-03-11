@@ -1,6 +1,3 @@
-body {
-    background: none,
-  }
-  .container {
-    border-radius: 90px;
-  }
+.body{
+    border-radius: 20px;
+}
