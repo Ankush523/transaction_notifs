@@ -1,10 +1,9 @@
 import './App.css';
-import Homepage from './components/Homepage';
-import Linkpage from './components/Linkpage';
-import Completion from './components/Completion';
-import {HashRouter, BrowserRouter,Route,Routes } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Thankyou from './components/Thankyou';
+import Homepage from './pages/Homepage';
+import Linkpage from './pages/Linkpage';
+import Completion from './pages/Completion';
+import {HashRouter, Route,Routes } from 'react-router-dom';
+import Thankyou from './pages/Thankyou';
 
 function App() {
   return (
