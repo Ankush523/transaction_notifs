@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
-const Completion = () => {
+const Completion = () => { 
   return (
     <div className='flex flex-col justify-center pt-[20%] px-[10%]'>
         <label className='text-purple2 text-base text-left font-semibold'>CONGRATULATIONS!!</label>
