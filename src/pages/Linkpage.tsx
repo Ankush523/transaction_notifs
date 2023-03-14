@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from "react";
 
-interface EthereumWindow extends Window {
+interface EthereumWindow {
     ethereum?: {
       request: (args: { method: string; }) => Promise<string[]>;
     };
@@ -17,11 +17,15 @@ const Linkpage = () => {
             ethereum.request({ method: 'eth_requestAccounts' })
               .then(accounts => {
                 setAddress(accounts[0]);
+                console.log(accounts[0])
               })
               .catch(error => {
                 console.log(error);
               });
           }
+        }
+        else{
+            console.log("error")
         }
       }, []);
 
@@ -44,3 +48,188 @@ const Linkpage = () => {
 }
 
 export default Linkpage
+
+
+
+
+
+
+
+
+
+// import { useEffect, useState } from "react";
+// declare global {
+//   interface Window {
+//     ethereum?: {
+//       request: (args: any) => Promise<any>;
+//       on: (eventName: string, callback: () => void) => void;
+//       removeListener: (eventName: string, callback: () => void) => void;
+//     };
+//   }
+// }
+
+// const CurrentWalletAddress = () => {
+//   const [address, setAddress] = useState("");
+
+//   useEffect(() => {
+//     const fetchAccounts = async () => {
+//       const { ethereum } = window;
+//       if (ethereum) {
+//         try {
+//           const accounts = await ethereum.request({ method: "eth_accounts" });
+//           if (accounts.length > 0) {
+//             setAddress(accounts[0]);
+//           }
+//         } catch (error) {
+//           console.error(error);
+//         }
+//       }
+//     };
+
+//     fetchAccounts();
+
+//     const handleAccountsChanged = () => {
+//       const { ethereum } = window;
+//       if (ethereum) {
+//         ethereum.request({ method: "eth_accounts" })
+//           .then((accounts: string[]) => {
+//             setAddress(accounts[0]);
+//           })
+//           .catch((error: any) => {
+//             console.error(error);
+//           });
+//       }
+//     };
+
+//     const { ethereum } = window;
+//     if (ethereum) {
+//       ethereum.on("accountsChanged", handleAccountsChanged);
+//     }
+
+//     return () => {
+//       if (ethereum) {
+//         ethereum.removeListener("accountsChanged", handleAccountsChanged);
+//       }
+//     };
+//   }, []);
+
+//   return (
+//     <div>
+//       {address ? <span>{address}</span> : <span>Not connected</span>}
+//     </div>
+//   );
+// };
+// export default CurrentWalletAddress;
+
+
+
+
+
+
+
+
+
+// import { ConnectButton } from '@rainbow-me/rainbowkit';
+// import { Ethereum } from '@wagmi/connectors';
+// import React, { useState } from 'react';
+// import { useProvider } from 'wagmi';
+// declare global {
+//     interface Window {
+//       ethereum?: Ethereum;
+//     }
+//   }
+// function Linkpage() {
+//   const [walletAddress, setWalletAddress] = useState('');
+//   const provider = useProvider()
+//   function getWalletAddress() {
+//     if (window.ethereum) {
+//       window.ethereum
+//         .request({ method: 'eth_requestAccounts' })
+//         .then(function(accounts: string[]) {
+//           setWalletAddress(accounts[0]);
+//           console.log(provider)
+//           chrome.runtime.sendMessage(
+//             chrome.runtime.id,  // Specify the extension ID as the first argument
+//             { walletAddress: accounts[0] },  // The message to send
+//             function(response) {
+//               console.log(response);
+//             }
+//           );
+//         })
+//         .catch(function(error: Error) {
+//           console.error(error);
+//         });
+//     } else {
+//       console.error('Ethereum is not found');
+//     }
+//   }  
+
+//   return (
+//     <div>
+//       <button onClick={getWalletAddress}>Get Wallet Address</button>
+//       <p>Your wallet address is: {walletAddress}</p>
+//       <ConnectButton/>
+//     </div>
+//   );
+// }
+// export default Linkpage;
+
+
+
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import { ethers } from "ethers";
+// declare global {
+//   interface Window {
+//     ethereum?: any;
+//   }
+// }
+// const Linkpage: React.FC = () => {
+//   const [walletAddress, setWalletAddress] = useState("");
+//   const getWalletAddress = async () => {
+//     try {
+//       // Connect to the Ethereum network using the injected provider (MetaMask)
+//       const provider = new ethers.providers.Web3Provider(window.ethereum);
+//       console.log(provider)
+//       // Get the signer (current account)
+//       const signer = provider.getSigner();
+//       console.log(signer)
+//       // Get the wallet address
+//       const address = await signer.getAddress();
+//       console.log(address)
+//       // Update the state variable with the wallet address
+//       setWalletAddress(address);
+//       console.log(walletAddress)
+//     } catch (err) {
+//       console.log("Error fetching wallet address:", err);
+//     }
+//   };
+
+//   useEffect(() => {
+//     // Check if the ethereum object is available
+//     if (window.ethereum) {
+//       // Call the getWalletAddress function
+//       getWalletAddress();
+//       // Listen for changes in the user's wallet address
+//       window.ethereum.on("accountsChanged", (accounts: string[]) => {
+//         setWalletAddress(accounts[0]);
+//       });
+//     } else {
+//       // Handle the case where the ethereum object is not available
+//       console.log("Please install MetaMask to use this feature");
+//     }
+//   }, []);
+
+//   return (
+//     <div>
+//       <p>Current wallet address: {walletAddress}</p>
+//     </div>
+//   );
+// };
+// export default Linkpage;

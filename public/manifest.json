@@ -9,15 +9,29 @@
     "default_icon" : "notification.png",
     "default_popup" : "index.html"
   },
-  "permissions": ["activeTab","web3"],
+  "permissions": ["activeTab","tabs"],
   "content_security_policy": 
   {
     "script-src": ["'self'", "'unsafe-eval'"],
     "object-src": ["'self'"]
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
   "icons": {
     "16": "notification.png",
     "48": "notification.png",
     "128": "notification.png"
+  },
+  "externally_connectable": {
+    "matches": ["<all_urls>"]
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
   }
 }

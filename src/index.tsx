@@ -3,14 +3,47 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import '@rainbow-me/rainbowkit/styles.css';
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+  lightTheme
+} from '@rainbow-me/rainbowkit';
+import { configureChains, createClient, goerli, WagmiConfig } from 'wagmi';
+import { mainnet, polygon, optimism, arbitrum, polygonMumbai } from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+
+const { chains, provider } = configureChains(
+  [mainnet, goerli, polygon, polygonMumbai],
+  [
+    alchemyProvider({ apiKey: "B_5czQpQeXc_6pZlC-wDa_-QD1xhTI86" }),
+    publicProvider()
+  ]
+);
+
+const { connectors } = getDefaultWallets({
+  appName: 'My RainbowKit App',
+  chains
+});
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <WagmiConfig client={wagmiClient}>
+    <RainbowKitProvider modalSize="compact" chains={chains} theme={lightTheme({accentColor: '#4D6DE3',})}>
+      <App />
+    </RainbowKitProvider>
+  </WagmiConfig>
+</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
