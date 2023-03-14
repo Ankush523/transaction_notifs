@@ -129,7 +129,6 @@ export default Linkpage
 
 
 
-// import { ConnectButton } from '@rainbow-me/rainbowkit';
 // import { Ethereum } from '@wagmi/connectors';
 // import React, { useState } from 'react';
 // import { useProvider } from 'wagmi';
@@ -142,7 +141,7 @@ export default Linkpage
 //   const [walletAddress, setWalletAddress] = useState('');
 //   const provider = useProvider()
 //   function getWalletAddress() {
-//     if (window.ethereum) {
+//     if (typeof window.ethereum !== 'undefined') {
 //       window.ethereum
 //         .request({ method: 'eth_requestAccounts' })
 //         .then(function(accounts: string[]) {
@@ -168,7 +167,6 @@ export default Linkpage
 //     <div>
 //       <button onClick={getWalletAddress}>Get Wallet Address</button>
 //       <p>Your wallet address is: {walletAddress}</p>
-//       <ConnectButton/>
 //     </div>
 //   );
 // }
@@ -232,4 +230,45 @@ export default Linkpage
 //     </div>
 //   );
 // };
+// export default Linkpage;
+
+
+
+
+
+// import { ethers } from 'ethers';
+//  declare global {
+//      interface Window {
+//        ethereum?: any;
+//      }
+//    }
+//    const connectToMetamask = async () => {
+//     if (typeof window.ethereum !== 'undefined') {
+//       try {
+//         // Request account access if needed
+//         await window.ethereum.request({ method: 'eth_requestAccounts' });
+//         const provider = new ethers.providers.Web3Provider(window.ethereum);
+//         const signer = provider.getSigner();
+//         // Use the signer to interact with the blockchain
+//         // For example:
+//         const network = await provider.getNetwork();
+//         const balance = await signer.getBalance();
+//         console.log('Connected to', network.name);
+//         console.log('Balance:', ethers.utils.formatEther(balance));
+//       } catch (error) {
+//         console.error(error);
+//       }
+//     } else {
+//       alert('Metamask not detected. Please install Metamask or connect to an Ethereum node using an alternative method.');
+//     }
+//   }
+
+// const Linkpage = () => {
+//   return (
+//     <div>
+//       <button onClick={connectToMetamask}>Connect to Metamask</button>
+//     </div>
+//   );
+// }
+
 // export default Linkpage;

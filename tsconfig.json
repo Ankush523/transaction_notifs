@@ -19,6 +19,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "config-overrides.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "config-overrides.js", "public/background.js"],
   "exclude": ["node_modules"]
 }
